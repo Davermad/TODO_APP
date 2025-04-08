@@ -14,6 +14,12 @@ class Todo(models.Model):
         COMPLETED = 'completed', _('Completed')
         CANCELLED = 'cancelled', _('Cancelled')
         
+    class PriorityChoice(models.TextChoices):
+        """Priority choices for todo items."""
+        HIGH = 'high', _('High')
+        MEDIUM = 'medium', _("Medium")
+        LOW = "low", _("Low")
+        
     name = models.CharField(max_length=200, help_text=_("Name of the todo item"))
     description = models.TextField(blank=True, help_text=_("Detailed description of the todo"))
     status = models.CharField(
@@ -22,9 +28,10 @@ class Todo(models.Model):
         default=StatusChoice.IN_PROGRESS,
         help_text=_("Current status of the todo item")
     )
-    priority = models.PositiveSmallIntegerField(
-        default=3,
-        choices=[(1, _('High')), (2, _('Medium')), (3, _('Low'))],
+    priority = models.CharField(
+        max_length=6,
+        choices=PriorityChoice.choices,
+        default=PriorityChoice.LOW,
         help_text=_("Priority level of the todo item")
     )
     due_date = models.DateField(null=True, blank=True, help_text=_("Due date for this todo item"))
