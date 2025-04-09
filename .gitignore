@@ -7,4 +7,14 @@ wheels/
 *.egg-info
 
 # Virtual environments
-.venv
+.venv/
+
+# Environment variables
+.env
+
+# idea directories
+.idea/
+.vscode/
+
+# frontend modeule
+frontend/node_modules/
